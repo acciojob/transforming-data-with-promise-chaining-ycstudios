@@ -2,34 +2,38 @@ const btn = document.getElementById('btn');
 const output = document.getElementById('output');
 
 btn.addEventListener("click", () => {
-    const ip = parseInt(document.getElementById('ip').value); // Get the input value as an integer
+    const ip = parseInt(document.getElementById('ip').value);
 
-    // Start the promise chain
     new Promise((resolve, reject) => {
         setTimeout(() => {
-            resolve(ip); // Initial resolve with the input number
+            resolve(ip);
         }, 2000);
     })
         .then((ip) => {
-            output.innerHTML += `Result: ${ip} <br>`; // Append initial value
-            return ip * 2; // Multiply by 2
+            output.innerHTML += `Result: ${ip} <br>`;
+            return new Promise((resolve) => {
+                setTimeout(() => resolve(ip * 2), 2000);
+            });
         })
         .then((ip) => {
-            output.innerHTML += `Result: ${ip} <br>`; // Append after multiplication
-            return ip - 3; // Subtract 3
+            output.innerHTML += `Result: ${ip} <br>`;
+            return new Promise((resolve) => {
+                setTimeout(() => resolve(ip - 3), 1000);
+            });
         })
         .then((ip) => {
-            output.innerHTML += `Result: ${ip} <br>`; // Append after subtraction
-            return ip / 2; // Divide by 2
+            output.innerHTML += `Result: ${ip} <br>`;
+            return new Promise((resolve) => {
+                setTimeout(() => resolve(ip / 2), 1000);
+            });
         })
         .then((ip) => {
-            output.innerHTML += `Result: ${ip} <br>`; // Append after division
-            return ip + 10; // Add 10
+            output.innerHTML += `Result: ${ip} <br>`;
+            return new Promise((resolve) => {
+                setTimeout(() => resolve(ip + 10), 1000);
+            });
         })
         .then((ip) => {
-            output.innerHTML += `Final Result: ${ip} <br>`; // Append final result
+            output.innerHTML += `Final Result: ${ip} <br>`;
         })
-        .catch((error) => {
-            output.innerHTML = `Error: ${error.message}`; // In case of an error
-        });
 });
